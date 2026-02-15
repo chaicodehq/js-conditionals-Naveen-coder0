@@ -26,5 +26,29 @@
  * @returns {number} Total tax amount owed
  */
 export function calculateTax(income) {
-  // Your code here
+  // Rule: 0 or negative income → 0 tax
+  if (typeof income !== "number" || income <= 0 || isNaN(income)) {
+    return 0;
+  }
+
+  let tax = 0;
+
+  // Bracket 4: Over 70,000 → 30%
+  if (income > 70000) {
+    tax += (income - 70000) * 0.30;
+    income = 70000;
+  }
+
+  // Bracket 3: 30,001 – 70,000 → 20%
+  if (income > 30000) {
+    tax += (income - 30000) * 0.20;
+    income = 30000;
+  }
+
+  // Bracket 2: 10,001 – 30,000 → 10%
+  if (income > 10000) {
+    tax += (income - 10000) * 0.10;
+  }
+
+  return Number(tax.toFixed(2));
 }

@@ -29,5 +29,43 @@
  * @returns {number} Shipping cost, 0 for free shipping, or -1 for invalid input
  */
 export function calculateShipping(weight, country, orderTotal) {
-  // Your code here
+  if (
+    typeof weight !== "number" ||
+    weight <= 0 ||
+    isNaN(weight) ||
+    typeof orderTotal !== "number" ||
+    orderTotal < 0 ||
+    isNaN(orderTotal)
+  ) {
+    return -1;
+  }
+
+  if (country === "US") {
+    // Free shipping
+    if (orderTotal > 50) {
+      return 0;
+    }
+
+    if (weight <= 1) {
+      return 5;
+    } else if (weight <= 5) {
+      return 10;
+    } else {
+      return 15;
+    }
+
+  } else {
+    // International free shipping
+    if (orderTotal > 100) {
+      return 0;
+    }
+
+    if (weight <= 1) {
+      return 15;
+    } else if (weight <= 5) {
+      return 25;
+    } else {
+      return 40;
+    }
+  }
 }
